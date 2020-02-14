@@ -43,7 +43,7 @@ resource "aws_vpn_connection" "pscloud-vpn-ipsec-connection" {
 resource "aws_vpn_connection_route" "pscloud-vpn-ipsec-routes" {
   count                   = length(var.pscloud_static_routes)
 
-  destination_cidr_block  = var.pscloud_static_routes[count.index]
+  destination_cidr_block  = var.pscloud_static_routes[0]
   vpn_connection_id       = aws_vpn_connection.pscloud-vpn-ipsec-connection.id
 }
 
