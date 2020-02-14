@@ -10,3 +10,4 @@ variable "pscloud_inside_tunnel1_cidr" { default = "169.254.142.80/30" }
 variable "pscloud_inside_tunnel2_cidr" { default = "169.254.221.92/30" }
 variable "pscloud_static_routes" { default = [] }
 variable "pscloud_ipsec_type" { default = "ipsec.1"}
+variable "pscloud_subnets_ids_assoc" {}

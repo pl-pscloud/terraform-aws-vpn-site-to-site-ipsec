@@ -46,3 +46,23 @@ resource "aws_vpn_connection_route" "pscloud-vpn-ipsec-routes" {
   destination_cidr_block  = var.pscloud_static_routes[count.index]
   vpn_connection_id       = aws_vpn_connection.pscloud-vpn-ipsec-connection.id
 }
+
+resource "aws_route_table" "pscloud-rt-ipsec" {
+  vpc_id = var.pscloud_vpc_id
+
+  route {
+    cidr_block = var.pscloud_static_routes
+    gateway_id = aws_vpn_gateway.pscloud-vpn-gateway.id
+  }
+
+  tags = {
+    Name = "${var.pscloud_company}_rt_ipsec_${var.pscloud_env}"
+    Project = "IPSEC"
+  }
+}
+
+resource "aws_route_table_association" "pscloud-ipsec-assoc-public" {
+  count                   = length(var.pscloud_subnets_ids_assoc)
+  subnet_id               = element(var.pscloud_subnets_ids_assoc, count.index).id
+  route_table_id          = aws_route_table.pscloud-rt-ipsec.id
+}
