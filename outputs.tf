@@ -20,3 +20,7 @@ output "pscloud_tunnel1_prekey" {
 output "pscloud_tunnel2_prekey" {
   value = random_password.pscloud-tunnel2-password.result
 }
+
+output "pscloud_vpgw_id" {
+  value = aws_vpn_gateway.pscloud-vpn-gateway.id
+}
