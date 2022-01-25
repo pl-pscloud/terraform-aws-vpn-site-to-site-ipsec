@@ -9,6 +9,7 @@ resource "random_password" "pscloud-tunnel2-password" {
 }
 
 resource "aws_vpn_gateway" "pscloud-vpn-gateway" {
+  count                 = var.pscloud_transit_gateway_enable == true ? 0 : 1
   vpc_id                = var.pscloud_vpc_id
 
   tags = {
@@ -26,7 +27,9 @@ resource "aws_customer_gateway" "pscloud-vpn-customer-gateway" {
 }
 
 resource "aws_vpn_connection" "pscloud-vpn-ipsec-connection" {
-  vpn_gateway_id        = aws_vpn_gateway.pscloud-vpn-gateway.id
+  vpn_gateway_id        = var.pscloud_transit_gateway_enable == true ? null : aws_vpn_gateway.pscloud-vpn-gateway[0].id
+  transit_gateway_id    = var.pscloud_transit_gateway_enable == true ? var.pscloud_transit_gateway_id : null
+
   customer_gateway_id   = aws_customer_gateway.pscloud-vpn-customer-gateway.id
   type                  = var.pscloud_ipsec_type
   static_routes_only    = true

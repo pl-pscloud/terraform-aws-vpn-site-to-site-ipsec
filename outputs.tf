@@ -22,5 +22,5 @@ output "pscloud_tunnel2_prekey" {
 }
 
 output "pscloud_vpgw_id" {
-  value = aws_vpn_gateway.pscloud-vpn-gateway.id
+  value = var.pscloud_transit_gateway_id == null ? aws_vpn_gateway.pscloud-vpn-gateway[0].id : null
 }
