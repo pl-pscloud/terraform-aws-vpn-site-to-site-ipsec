@@ -32,7 +32,7 @@ resource "aws_vpn_connection" "pscloud-vpn-ipsec-connection" {
 
   customer_gateway_id   = aws_customer_gateway.pscloud-vpn-customer-gateway.id
   type                  = var.pscloud_ipsec_type
-  static_routes_only    = true
+  static_routes_only    = var.pscloud_static_routes_only
   tunnel1_inside_cidr   = var.pscloud_inside_tunnel1_cidr
   tunnel2_inside_cidr   = var.pscloud_inside_tunnel2_cidr
   tunnel1_preshared_key = random_password.pscloud-tunnel1-password.result
