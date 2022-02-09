@@ -39,7 +39,7 @@ resource "aws_vpn_connection" "pscloud-vpn-ipsec-connection" {
   tunnel2_preshared_key = random_password.pscloud-tunnel2-password.result
 
   tags = {
-    Name                = "${var.pscloud_company}_vpn_ipsec_connection_${var.pscloud_env}"
+    Name                = "${var.pscloud_company}_vpn_ipsec_connection_${var.pscloud_project}_${var.pscloud_env}"
   }
 }
 
