@@ -49,3 +49,10 @@ resource "aws_vpn_connection_route" "pscloud-vpn-ipsec-routes" {
   destination_cidr_block  = var.pscloud_static_routes[count.index]
   vpn_connection_id       = aws_vpn_connection.pscloud-vpn-ipsec-connection.id
 }
+
+data "aws_ec2_transit_gateway_vpn_attachment" "pscloud-tgw-attachment" {
+  count               = var.pscloud_transit_gateway_enable == true ? 1 : 0 
+
+  transit_gateway_id = var.pscloud_transit_gateway_id
+  vpn_connection_id  = aws_vpn_connection.pscloud-vpn-ipsec-connection.id
+}

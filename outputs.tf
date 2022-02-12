@@ -24,3 +24,7 @@ output "pscloud_tunnel2_prekey" {
 output "pscloud_vpgw_id" {
   value = var.pscloud_transit_gateway_id == null ? aws_vpn_gateway.pscloud-vpn-gateway[0].id : null
 }
+
+output "pscloud_tgw_attachment" {
+  value = var.pscloud_transit_gateway_id != null ? data.aws_ec2_transit_gateway_vpn_attachment.pscloud-tgw-attachment[0].id : null
+}
